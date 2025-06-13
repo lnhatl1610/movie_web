@@ -10,7 +10,15 @@ const Card = ({ data, trending, index, media_type }) => {
 
     return (
         <Link to={"/" + mediaType + "/" + data.id} className="max-w-[230px] h-80 rounded relative block hover:scale-105 transition-all">
-            <img src={imageURL + data.poster_path} className="w-full h-full" />
+            {
+                data.poster_path ? (
+                    <img src={imageURL + data.poster_path} className="w-full h-full" />
+                ) : (
+                    <div className="bg-neutral-800 w-full h-full flex justify-center items-center">
+                        No Image Found
+                    </div>
+                )
+            }
 
             <div className="absolute top-4">
                 {

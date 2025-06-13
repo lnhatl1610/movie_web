@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../assets/logo.png"; // Adjust the path as necessary
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import userIcon from "../assets/user.png";
 import { IoSearch } from "react-icons/io5";
 import { navigation } from "../contants/navigation";
