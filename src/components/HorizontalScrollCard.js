@@ -16,7 +16,7 @@ const HorizontalScrollCard = ({ data = [], heading, trending, media_type }) => {
 
     return (
         <div className="container mx-auto px-5 my-10">
-            <h2 className="text-xl lg:text-2xl font-bold mb-2 text-white">{heading}</h2>
+            <h2 className="text-xl lg:text-2xl font-bold mb-2 text-white capitalize">{heading}</h2>
             <div className="relative">
                 <div ref={containerRef} className="grid grid-cols-[repeat(auto-fit,_230px)] auto-cols-max grid-flow-col gap-4 overflow-x-scroll lg:overflow-hidden scroll-smooth transition-all">
                     {

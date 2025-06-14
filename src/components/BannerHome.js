@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { FaAngleLeft } from "react-icons/fa6";
 import { FaAngleRight } from "react-icons/fa6";
 import { current } from "@reduxjs/toolkit";
+import { Link } from "react-router-dom";
 
 const BannerHome = () => {
     const bannerData = useSelector((state) => state.movieData.bannerData);
@@ -66,7 +67,13 @@ const BannerHome = () => {
                                             <span>|</span>
                                             <p>View: {Number(data.popularity).toFixed(0)}</p>
                                         </div>
-                                        <button className="bg-white px-4 py-2 text-black font-bold rounded mt-4 hover:bg-gradient-to-l from-red-500 to-orange-200 shadow-md transition-all hover:scale-105 duration-100">Play Now</button>
+
+                                        <Link to={`/${data.media_type}/${data.id}`} className="">
+                                            <button className="bg-white px-4 py-2 text-black font-bold rounded mt-4 hover:bg-gradient-to-l from-red-500 to-orange-200 shadow-md transition-all hover:scale-195 duration-100">
+                                                Play Now
+                                            </button>
+                                        </Link>
+
                                     </div>
                                 </div>
 

@@ -1,16 +1,28 @@
-import React from "react";
+import React, { use, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetchDetails from "../hooks/useFetchDetails";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import Divider from "../components/Divider";
+import HorizontalScrollCard from "../components/HorizontalScrollCard";
+import useFetch from "../hooks/useFetch";
+import VideoPlay from "../components/VideoPlay";
 
 const DetailsPage = () => {
     const imageURL = useSelector((state) => state.movieData.imageURL);
     const params = useParams();
     const { data } = useFetchDetails(`/${params.explore}/${params.id}`);
     const { data: castData } = useFetchDetails(`/${params.explore}/${params.id}/credits`);
-    console.log(castData);
+    const { data: similarData } = useFetch(`/${params.explore}/${params.id}/similar`);
+    const { data: recommendationData } = useFetch(`/${params.explore}/${params.id}/recommendations`);
+    const [playVideo, setPlayVideo] = useState(false);
+    const [playVideoId, setPlayVideoId] = useState("");
+
+    const handlePlayVideo = (data) => {
+        setPlayVideoId(data);
+        setPlayVideo(true);
+    }
+
     return (
         <div>
             <div className="w-full h-[280px] relative hidden lg:block">
@@ -24,6 +36,7 @@ const DetailsPage = () => {
             <div className="container mx-auto px-3 py-16 lg:py-0 flex flex-col lg:flex-row gap-5 lg:gap-10">
                 <div className="lg:-mt-28 relative mx-auto lg:mx-0 w-fit min-w-60">
                     <img src={imageURL + data.poster_path} className="h-80 w-60 object-cover rounded" />
+                    <button onClick={() => handlePlayVideo(data)} className="mt-3 w-full py-2 px-4 text-center bg-white text-black rounded font-bold text-lg hover:bg-gradient-to-l from-red-500 to-orange-200 shadow-md transition-all hover:scale-95 duration-100">Play Now</button>
                 </div>
                 <div className="">
                     <h2 className="text-xl lg:text-3xl font-bold text-white">{data.title || data.name}</h2>
@@ -87,6 +100,17 @@ const DetailsPage = () => {
                     </div>
                 </div>
             </div >
+
+            <div>
+                <HorizontalScrollCard data={similarData} heading={"Similar " + params.explore} media_type={params.explore} />
+                <HorizontalScrollCard data={recommendationData} heading={"Recommendation " + params.explore} media_type={params.explore} />
+            </div>
+
+            {
+                playVideo && (
+                    <VideoPlay data={playVideoId} close={() => setPlayVideo(false)} media_type={params.explore} />
+                )
+            }
         </div >
     )
 }

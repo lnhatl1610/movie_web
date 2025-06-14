@@ -53,7 +53,6 @@ const SearchPage = () => {
         }
     }, [pageNo]);
 
-    console.log(location);
     return (
         <div className="py-16 px-4">
             <div className="lg:hidden my-2 sticky top-16 z-10">
